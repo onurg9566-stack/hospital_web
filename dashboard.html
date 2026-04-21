@@ -1,0 +1,148 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+<h2 class="mb-4">Hastane Yönetim Paneli</h2>
+
+<div class="row g-4">
+
+<!-- Hasta -->
+<div class="col-md-3">
+<div class="card shadow border-0">
+<div class="card-body text-center">
+<h6 class="text-muted">Toplam Hasta</h6>
+<h2 class="text-primary">{{ hasta_sayisi }}</h2>
+<a href="/hastalar" class="btn btn-primary btn-sm mt-2">Hastaları Gör</a>
+</div>
+</div>
+</div>
+
+<!-- Doktor -->
+<div class="col-md-3">
+<div class="card shadow border-0">
+<div class="card-body text-center">
+<h6 class="text-muted">Toplam Doktor</h6>
+<h2 class="text-success">{{ doktor_sayisi }}</h2>
+<a href="/doktor_ekle" class="btn btn-success btn-sm mt-2">Doktor Ekle</a>
+</div>
+</div>
+</div>
+
+<!-- Branş -->
+<div class="col-md-3">
+<div class="card shadow border-0">
+<div class="card-body text-center">
+<h6 class="text-muted">Toplam Branş</h6>
+<h2 class="text-warning">{{ brans_sayisi }}</h2>
+<a href="/branslar" class="btn btn-warning btn-sm mt-2">Branşlar</a>
+</div>
+</div>
+</div>
+
+<!-- Randevu -->
+<div class="col-md-3">
+<div class="card shadow border-0">
+<div class="card-body text-center">
+<h6 class="text-muted">Toplam Randevu</h6>
+<h2 class="text-danger">{{ randevu_sayisi }}</h2>
+<a href="/randevular" class="btn btn-danger btn-sm mt-2">Randevular</a>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- Hızlı İşlemler -->
+<div class="row mt-5">
+<div class="col-md-12">
+<div class="card shadow">
+<div class="card-header bg-dark text-white">
+Hızlı İşlemler
+</div>
+<div class="card-body">
+<a href="/ekle" class="btn btn-primary me-2">Hasta Ekle</a>
+<a href="/doktor_ekle" class="btn btn-success me-2">Doktor Ekle</a>
+<a href="/branslar" class="btn btn-warning me-2">Branş Ekle</a>
+<a href="/hastalar" class="btn btn-info">Hasta Listesi</a>
+<a href="/randevu_ekle" class="btn btn-secondary">Randevu Ekle</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Chart.js Grafikleri -->
+<div class="row mt-5">
+
+<!-- Branş Bazlı Randevu -->
+<div class="col-md-6">
+<div class="card shadow">
+<div class="card-header bg-primary text-white">Branş Bazlı Randevu Sayısı</div>
+<div class="card-body">
+<canvas id="bransChart"></canvas>
+</div>
+</div>
+</div>
+
+<!-- Doktor Bazlı Randevu -->
+<div class="col-md-6">
+<div class="card shadow">
+<div class="card-header bg-success text-white">Doktor Bazlı Randevu Sayısı</div>
+<div class="card-body">
+<canvas id="doktorChart"></canvas>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Branş Bazlı Chart
+    const bransCtx = document.getElementById('bransChart').getContext('2d');
+    const bransChart = new Chart(bransCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ brans_isimleri|tojson }},
+            datasets: [{
+                label: 'Randevu Sayısı',
+                data: {{ brans_sayilari|tojson }},
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+
+    // Doktor Bazlı Chart
+    const doktorCtx = document.getElementById('doktorChart').getContext('2d');
+    const doktorChart = new Chart(doktorCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ doktor_isimleri|tojson }},
+            datasets: [{
+                label: 'Randevu Sayısı',
+                data: {{ doktor_sayilari|tojson }},
+                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+</script>
+
+{% endblock %}

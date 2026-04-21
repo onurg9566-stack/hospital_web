@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h3>Hasta Güncelle</h3>
+
+<form method="POST">
+
+<input name="ad" value="{{ hasta.ad }}" class="form-control">
+<br>
+
+<input name="soyad" value="{{ hasta.soyad }}" class="form-control">
+<br>
+
+<button class="btn btn-primary">
+Güncelle
+</button>
+
+</form>
+
+{% endblock %}

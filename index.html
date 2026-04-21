@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h3>Hasta Listesi</h3>
+
+<!-- Hasta Arama -->
+
+<form method="GET" action="/hastalar" class="mb-3">
+
+<div class="input-group">
+
+<input type="text"
+name="search"
+class="form-control"
+placeholder="Hasta ara (ad veya soyad)">
+
+<button class="btn btn-primary">
+Ara
+</button>
+
+</div>
+
+</form>
+
+
+<table class="table table-striped">
+
+<tr>
+<th>ID</th>
+<th>Ad</th>
+<th>Soyad</th>
+<th>İşlem</th>
+</tr>
+
+{% for hasta in hastalar %}
+
+<tr>
+
+<td>{{ hasta.id }}</td>
+<td>{{ hasta.ad }}</td>
+<td>{{ hasta.soyad }}</td>
+
+<td>
+
+<a href="/duzenle/{{ hasta.id }}" class="btn btn-warning btn-sm">
+Düzenle
+</a>
+
+<a href="/sil/{{ hasta.id }}" class="btn btn-danger btn-sm">
+Sil
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

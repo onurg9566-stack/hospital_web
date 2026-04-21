@@ -1,0 +1,23 @@
+<h2>Doktor Ekle</h2>
+
+<form method="post">
+
+<input type="text" name="ad" placeholder="Doktor adı">
+
+<br><br>
+
+<select name="brans">
+
+{% for b in branslar %}
+
+<option value="{{b.ad}}">{{b.ad}}</option>
+
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<button type="submit">Ekle</button>
+
+</form>

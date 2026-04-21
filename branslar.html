@@ -1,0 +1,18 @@
+<h2>Branş Ekle</h2>
+
+<form method="post">
+
+<input type="text" name="ad" placeholder="Branş adı">
+<button type="submit">Ekle</button>
+
+</form>
+
+<hr>
+
+<h3>Branş Listesi</h3>
+
+{% for b in branslar %}
+
+<p>{{b.ad}}</p>
+
+{% endfor %}
